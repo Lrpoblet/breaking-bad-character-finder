@@ -1,15 +1,12 @@
 @import 'core/variables';
 @import 'core/reset';
 
-* {
-  align-items: center;
-}
-
 .header {
   height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .main {
@@ -20,11 +17,23 @@
   }
   &_characters {
     width: 70vw;
+    &-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
   }
 }
 
 .footer {
   position: fixed;
   bottom: 0;
-  height: 10vh;
+}
+
+// .li-character {
+
+// }
+
+.img {
+  height: 200px;
+  width: 150px;
 }
