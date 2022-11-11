@@ -1,2 +1,30 @@
 @import 'core/variables';
 @import 'core/reset';
+
+* {
+  align-items: center;
+}
+
+.header {
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main {
+  display: flex;
+
+  &_fav {
+    width: 30vw;
+  }
+  &_characters {
+    width: 70vw;
+  }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 10vh;
+}
