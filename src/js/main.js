@@ -3,10 +3,16 @@
 
 const loading = document.querySelector('.js_loading');
 const charactersList = document.querySelector('.js_characters');
-const charactersFavList = document.querySelector('.js_fav');
+const btn = document.querySelector('.js_btn');
+const textInput = document.querySelector('.js_textinput');
+
+//const charactersFavList = document.querySelector('.js_fav');
 
 let charactersData = [];
-let charactersFavData = [];
+let charactersSearch = [];
+//let charactersFavData = [];
+
+// -------AL CARGAR LA PÁGINA
 
 //creamos funcion que rescata la info del servidor y le ponemos estructura
 
@@ -60,4 +66,38 @@ fetch('https://breakingbadapi.com/api/characters')
   .then((data) => {
     charactersData = data;
     renderCharactersList(charactersData);
+  })
+  .catch((error) => {
+    console.error(error);
   });
+
+// ------> buscador
+
+function renderFilteredList(charactersSearchList) {
+  charactersList.innerHTML = '';
+  for (const characterData of charactersSearchList) {
+    charactersList.appendChild(renderCharacters(characterData));
+  }
+}
+
+function charactersSearched() {
+  const inputValue = textInput.value.toLowerCase();
+  const searchUrl = `https://breakingbadapi.com/api/characters?name=${inputValue}`;
+
+  fetch(searchUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      charactersSearch = data;
+      renderFilteredList(charactersSearch);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+function handleClick(event) {
+  event.preventDefault();
+  charactersSearched();
+}
+
+btn.addEventListener('click', handleClick);
