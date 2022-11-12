@@ -5,12 +5,11 @@ const loading = document.querySelector('.js_loading');
 const charactersList = document.querySelector('.js_characters');
 const btn = document.querySelector('.js_btn');
 const textInput = document.querySelector('.js_textinput');
-
-//const charactersFavList = document.querySelector('.js_fav');
+const charactersFavList = document.querySelector('.js_fav');
 
 let charactersData = [];
 let charactersSearch = [];
-//let charactersFavData = [];
+let charactersFavData = [];
 
 // -------AL CARGAR LA PÁGINA
 
@@ -99,5 +98,7 @@ function handleClick(event) {
   event.preventDefault();
   charactersSearched();
 }
+
+// -------------> Favoritos
 
 btn.addEventListener('click', handleClick);
