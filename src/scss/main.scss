@@ -7,10 +7,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &_title {
+    margin-bottom: 20px;
+    text-transform: capitalize;
+  }
 }
 
 .main {
   display: flex;
+  margin-bottom: 20px;
+
+  &_title {
+    margin-bottom: 20px;
+  }
 
   &_fav {
     width: 30vw;
@@ -27,6 +37,7 @@
 .footer {
   position: fixed;
   bottom: 0;
+  height: 20px;
 }
 
 // .li-character {

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 'use strict';
 
+const loading = document.querySelector('.js_loading');
 const charactersList = document.querySelector('.js_characters');
 const charactersFavList = document.querySelector('.js_fav');
 
@@ -13,6 +14,7 @@ function renderCharacters(charactersData) {
   //creamos los elementos
   const liElement = document.createElement('li');
   const articleElement = document.createElement('article');
+  // ----> meto la img en un div para que no se deforme?
   const imgElem = document.createElement('img');
   const titleElement = document.createElement('h3');
   const statusElement = document.createElement('p');
@@ -45,6 +47,7 @@ function renderCharacters(charactersData) {
 //la pintamos en el html
 
 function renderCharactersList(charactersDataList) {
+  loading.innerHTML = '';
   for (const characterData of charactersDataList) {
     charactersList.appendChild(renderCharacters(characterData));
   }
