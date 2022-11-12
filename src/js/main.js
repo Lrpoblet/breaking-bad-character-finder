@@ -10,6 +10,7 @@ const charactersFavList = document.querySelector('.js_fav');
 let charactersData = [];
 let charactersSearch = [];
 let charactersFavData = [];
+let selectedCharacter = [];
 
 // -------AL CARGAR LA PÁGINA
 
@@ -24,10 +25,10 @@ function renderCharacters(charactersData) {
   const titleElement = document.createElement('h3');
   const statusElement = document.createElement('p');
 
-  //creamos el contenido
+  //creamos el contenido que rescataremos del servidor
   const textTitle = document.createTextNode(charactersData.name);
   const textStatus = document.createTextNode(charactersData.occupation);
-  //SUSUTITUIR POR STATUS
+  // -----> SUSUTITUIR POR STATUS !!!! <--------------
   imgElem.setAttribute('src', charactersData.img);
   imgElem.setAttribute('alt', `${charactersData.name}`);
 
@@ -42,20 +43,32 @@ function renderCharacters(charactersData) {
   liElement.appendChild(articleElement);
 
   //añadimos estilos
-  liElement.classList.add('li-character');
+  articleElement.classList.add('article-character');
+  liElement.classList.add('js_character');
   imgElem.classList.add('img');
 
   const characters = liElement;
   return characters;
 }
 
-//la pintamos en el html
+//cremoas listener a los articulos para seleccionar favoritos
+function addCharactersListerers() {
+  const allCharacters = document.querySelectorAll('.js_character');
+
+  for (const eachCharacter of allCharacters) {
+    eachCharacter.addEventListener('click', handleClickCharacter);
+  }
+}
+
+//pintamos la información creada previamente en el HTML
 
 function renderCharactersList(charactersDataList) {
   loading.innerHTML = '';
   for (const characterData of charactersDataList) {
     charactersList.appendChild(renderCharacters(characterData));
   }
+  //activamos listener de los articulos
+  addCharactersListerers();
 }
 
 //rescatamos la lista del servidor
@@ -100,5 +113,9 @@ function handleClick(event) {
 }
 
 // -------------> Favoritos
+
+function handleClickCharacter(event) {
+  event.currentTarget.classList.toggle('fav');
+}
 
 btn.addEventListener('click', handleClick);

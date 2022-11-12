@@ -47,12 +47,20 @@
   text-align: center;
 }
 
-// .li-character {
-
-// }
+.fav {
+  background-color: $lighter-green;
+}
 
 .img {
   height: 200px;
   width: 150px;
   margin: 10px;
+}
+
+.article-character {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
