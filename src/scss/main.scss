@@ -14,6 +14,17 @@
     text-transform: capitalize;
     color: white;
   }
+  .text-input {
+    padding: 5px;
+  }
+
+  .btn {
+    padding: 5px;
+  }
+}
+
+.loading {
+  text-align: center;
 }
 
 .main {
@@ -23,6 +34,7 @@
   &_title {
     margin-bottom: 20px;
     color: $green;
+    text-align: center;
   }
 
   &_fav {
@@ -32,7 +44,7 @@
     width: 70vw;
     &-list {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
     }
   }
 }

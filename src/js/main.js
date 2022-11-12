@@ -10,7 +10,6 @@ const charactersFavList = document.querySelector('.js_fav');
 let charactersData = [];
 let charactersSearch = [];
 let charactersFavData = [];
-let selectedCharacter = [];
 
 // -------AL CARGAR LA PÁGINA
 
@@ -31,6 +30,9 @@ function renderCharacters(charactersData) {
   // -----> SUSUTITUIR POR STATUS !!!! <--------------
   imgElem.setAttribute('src', charactersData.img);
   imgElem.setAttribute('alt', `${charactersData.name}`);
+
+  //añadimos id para poder identificarlo y meterlo en favoritos
+  liElement.setAttribute('id', `${charactersData.char_id}`);
 
   //metemos el contenido en los elementos
   titleElement.appendChild(textTitle);
@@ -90,6 +92,7 @@ function renderFilteredList(charactersSearchList) {
   for (const characterData of charactersSearchList) {
     charactersList.appendChild(renderCharacters(characterData));
   }
+  addCharactersListerers();
 }
 
 function charactersSearched() {
@@ -114,8 +117,12 @@ function handleClick(event) {
 
 // -------------> Favoritos
 
-function handleClickCharacter(event) {
+function selectFav(event) {
   event.currentTarget.classList.toggle('fav');
+}
+
+function handleClickCharacter() {
+  selectFav(event);
 }
 
 btn.addEventListener('click', handleClick);
