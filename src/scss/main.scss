@@ -5,14 +5,16 @@
   height: 30vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-color: $dark-green;
+  background-image: url('../images/banner.jpg');
+  background-size: cover;
 
   &_title {
     margin-bottom: 20px;
-    text-transform: capitalize;
+    text-align: center;
     color: white;
+    text-shadow: 0 5px 0 $green;
   }
   .text-input {
     padding: 5px;
