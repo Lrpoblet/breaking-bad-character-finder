@@ -27,7 +27,7 @@ function renderCharacters(charactersData) {
   //creamos el contenido que rescataremos del servidor
   const textTitle = document.createTextNode(charactersData.name);
   const textStatus = document.createTextNode(charactersData.occupation);
-  // -----> SUSUTITUIR POR STATUS !!!! <--------------
+  // -----> ¡¡¡¡ SUSUTITUIR POR STATUS !!!! <--------------
   imgElem.setAttribute('src', charactersData.img);
   imgElem.setAttribute('alt', `${charactersData.name}`);
 
@@ -46,6 +46,7 @@ function renderCharacters(charactersData) {
 
   //añadimos estilos
   articleElement.classList.add('article-character');
+  liElement.classList.add('li-character');
   liElement.classList.add('js_character');
   imgElem.classList.add('img');
 
@@ -130,9 +131,8 @@ function selectFav(event) {
   event.currentTarget.classList.toggle('fav');
 }
 
-// 2. Usando attributo gancho buscar (el objeto con) los datos del articulo donde se ha hecho click.
-
 function addFav(event) {
+  //usando attributo gancho buscamos el objeto con los datos del articulo donde se ha hecho click.
   const characterSelected = charactersData.find(
     (eachCharacterObj) =>
       //el currentTarget nos devuelve un string, por lo que lo convertimos en número
@@ -161,7 +161,6 @@ function renderFav() {
   for (const characterFav of charactersFavData) {
     charactersFavList.appendChild(renderCharacters(characterFav));
   }
-  addCharactersListerers();
 }
 
 function handleClickCharacter() {

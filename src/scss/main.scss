@@ -8,7 +8,6 @@
   justify-content: center;
   align-items: center;
   background-color: $dark-green;
-  margin-bottom: 10px;
 
   &_title {
     margin-bottom: 20px;
@@ -31,6 +30,7 @@
 .main {
   display: flex;
   margin-bottom: 20px;
+  padding: 10px;
 
   &_title {
     margin-bottom: 20px;
@@ -40,6 +40,8 @@
 
   &_fav {
     width: 30vw;
+    background-color: $lighter-green;
+    margin-right: 10px;
   }
   &_characters {
     width: 70vw;
