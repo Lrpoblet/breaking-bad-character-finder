@@ -139,7 +139,19 @@ function addFav(event) {
       eachCharacterObj.char_id === parseInt(event.currentTarget.id)
   );
 
-  charactersFavData.push(characterSelected);
+  //guardamos el index del objeto para poder hacer el condicional y saber la posición para deseleccionar
+  const characterFavoritedIndex = charactersFavData.findIndex(
+    (eachCharacterObj) =>
+      eachCharacterObj.char_id === parseInt(event.currentTarget.id)
+  );
+
+  //si no está en la lista de favoritos dará -1 y por tanto lo añadiremos,
+  if (characterFavoritedIndex === -1) {
+    charactersFavData.push(characterSelected);
+  } //si da algún valor lo quitamos de favoritos utilizando su index y así sabemos desde qué posición querremos quitar
+  else {
+    charactersFavData.splice(characterFavoritedIndex, 1);
+  }
 
   renderFav();
 }
