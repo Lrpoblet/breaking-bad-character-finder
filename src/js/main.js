@@ -31,7 +31,7 @@ function renderCharacters(charactersData) {
   imgElem.setAttribute('src', charactersData.img);
   imgElem.setAttribute('alt', `${charactersData.name}`);
 
-  //añadimos id para poder identificarlo y meterlo en favoritos
+  //añadimos id(gancho) para poder identificarlo y meterlo en favoritos
   liElement.setAttribute('id', `${charactersData.char_id}`);
 
   //metemos el contenido en los elementos
@@ -53,7 +53,7 @@ function renderCharacters(charactersData) {
   return characters;
 }
 
-//cremoas listener a los articulos para seleccionar favoritos
+//creamos listener a los articulos para seleccionar favoritos
 function addCharactersListerers() {
   const allCharacters = document.querySelectorAll('.js_character');
 
@@ -73,17 +73,25 @@ function renderCharactersList(charactersDataList) {
   addCharactersListerers();
 }
 
-//rescatamos la lista del servidor
+//rescatamos la lista del servidor y lo guardamos en el local storage
+const characterListStored = JSON.parse(localStorage.getItem('characterList'));
 
-fetch('https://breakingbadapi.com/api/characters')
-  .then((response) => response.json())
-  .then((data) => {
-    charactersData = data;
-    renderCharactersList(charactersData);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+//creamos condicional para que en caso de que ya esté guardada la info en LS la rescate de ahí en vez de hacer petición
+if (characterListStored !== null) {
+  charactersData = characterListStored;
+  renderCharactersList(charactersData);
+} else {
+  fetch('https://breakingbadapi.com/api/characters')
+    .then((response) => response.json())
+    .then((data) => {
+      charactersData = data;
+      localStorage.setItem('characterList', JSON.stringify(charactersData));
+      renderCharactersList(charactersData);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 
 // ------> buscador
 
@@ -117,12 +125,36 @@ function handleClick(event) {
 
 // -------------> Favoritos
 
+//funcion para añadirle la clase al hacer click
 function selectFav(event) {
   event.currentTarget.classList.toggle('fav');
 }
 
+// 2. Usando attributo gancho buscar (el objeto con) los datos del articulo donde se ha hecho click.
+
+function addFav(event) {
+  const characterSelected = charactersData.find(
+    (eachCharacterObj) =>
+      //el currentTarget nos devuelve un string, por lo que lo convertimos en número
+      eachCharacterObj.char_id === parseInt(event.currentTarget.id)
+  );
+
+  charactersFavData.push(characterSelected);
+
+  renderFav();
+}
+
+function renderFav() {
+  charactersFavList.innerHTML = '';
+  for (const characterFav of charactersFavData) {
+    charactersFavList.appendChild(renderCharacters(characterFav));
+  }
+  addCharactersListerers();
+}
+
 function handleClickCharacter() {
   selectFav(event);
+  addFav(event);
 }
 
 btn.addEventListener('click', handleClick);
