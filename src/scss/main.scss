@@ -14,7 +14,7 @@
     margin-bottom: 20px;
     text-align: center;
     color: white;
-    text-shadow: 0 5px 0 $green;
+    text-shadow: 0 2px 0 $green;
   }
   .text-input {
     padding: 5px;
@@ -72,6 +72,7 @@
   height: 200px;
   width: 150px;
   margin: 10px;
+  object-fit: cover;
 }
 
 .article-character {
