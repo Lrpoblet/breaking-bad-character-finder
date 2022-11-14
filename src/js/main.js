@@ -16,6 +16,20 @@ let charactersFavData = [];
 //creamos funcion que rescata la info del servidor y le ponemos estructura
 
 function renderCharacters(charactersData) {
+  //comprobamos si alguno de los personajes está en la lista de favoritos
+  const characterFavoritedIndex = charactersFavData.findIndex(
+    (eachCharacterObj) => eachCharacterObj.char_id === charactersData.char_id
+  );
+
+  //creamos variable para asignar la clase Fav
+  let classFav = '';
+  //devuelve -1 si no es favorito
+  if (characterFavoritedIndex === -1) {
+    classFav = 'none';
+  } else {
+    classFav = 'fav';
+  }
+
   //creamos los elementos
   const liElement = document.createElement('li');
   const articleElement = document.createElement('article');
@@ -41,7 +55,6 @@ function renderCharacters(charactersData) {
   articleElement.appendChild(imgElem);
   articleElement.appendChild(titleElement);
   articleElement.appendChild(statusElement);
-
   liElement.appendChild(articleElement);
 
   //añadimos estilos
@@ -49,6 +62,7 @@ function renderCharacters(charactersData) {
   liElement.classList.add('li-character');
   liElement.classList.add('js_character');
   imgElem.classList.add('img');
+  liElement.classList.add(classFav);
 
   const characters = liElement;
   return characters;
@@ -67,6 +81,7 @@ function addCharactersListerers() {
 
 function renderCharactersList(charactersDataList) {
   loading.innerHTML = '';
+  charactersList.innerHTML = '';
   for (const characterData of charactersDataList) {
     charactersList.appendChild(renderCharacters(characterData));
   }
@@ -74,8 +89,15 @@ function renderCharactersList(charactersDataList) {
   addCharactersListerers();
 }
 
-//rescatamos la lista del servidor y lo guardamos en el local storage
+//rescatamos las listas del servidor y guardamos en el local storage
 const characterListStored = JSON.parse(localStorage.getItem('characterList'));
+const favListStored = JSON.parse(localStorage.getItem('favList'));
+
+//creamos if para que en caso de que exista una lista de favoritos guardada en el local storage, la pinte
+if (favListStored !== null) {
+  charactersFavData = favListStored;
+  renderFav();
+}
 
 //creamos condicional para que en caso de que ya esté guardada la info en LS la rescate de ahí en vez de hacer petición
 if (characterListStored !== null) {
@@ -128,6 +150,7 @@ function handleClick(event) {
 
 //funcion para añadirle la clase al hacer click
 function selectFav(event) {
+  event.currentTarget.classList.remove('none');
   event.currentTarget.classList.toggle('fav');
 }
 
@@ -145,12 +168,14 @@ function addFav(event) {
       eachCharacterObj.char_id === parseInt(event.currentTarget.id)
   );
 
-  //si no está en la lista de favoritos dará -1 y por tanto lo añadiremos,
+  //si no está en la lista de favoritos dará -1 y por tanto lo añadiremos, en ambos casos lo guardamos en el local storage
   if (characterFavoritedIndex === -1) {
     charactersFavData.push(characterSelected);
+    localStorage.setItem('favList', JSON.stringify(charactersFavData));
   } //si da algún valor lo quitamos de favoritos utilizando su index y así sabemos desde qué posición querremos quitar
   else {
     charactersFavData.splice(characterFavoritedIndex, 1);
+    localStorage.setItem('favList', JSON.stringify(charactersFavData));
   }
 
   renderFav();
