@@ -3,9 +3,9 @@
 
 const loading = document.querySelector('.js_loading');
 const charactersList = document.querySelector('.js_characters');
-const btn = document.querySelector('.js_btn');
-const textInput = document.querySelector('.js_textinput');
 const charactersFavList = document.querySelector('.js_fav');
+const textInput = document.querySelector('.js_textinput');
+const btn = document.querySelector('.js_btn');
 
 let charactersData = [];
 let charactersSearch = [];
@@ -168,4 +168,12 @@ function handleClickCharacter() {
   addFav(event);
 }
 
+function handleEnter(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    charactersSearched();
+  }
+}
+
 btn.addEventListener('click', handleClick);
+textInput.addEventListener('keypress', handleEnter);
