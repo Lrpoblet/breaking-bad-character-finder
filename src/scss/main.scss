@@ -1,6 +1,10 @@
 @import 'core/variables';
 @import 'core/reset';
 
+.btn {
+  padding: 5px;
+}
+
 .header {
   height: 30vh;
   display: flex;
@@ -17,10 +21,6 @@
     text-shadow: 0 2px 0 $green;
   }
   .text-input {
-    padding: 5px;
-  }
-
-  .btn {
     padding: 5px;
   }
 }
@@ -44,6 +44,7 @@
     width: 30vw;
     background-color: $lighter-green;
     margin-right: 10px;
+    text-align: center;
   }
   &_characters {
     width: 70vw;

@@ -6,6 +6,7 @@ const charactersList = document.querySelector('.js_characters');
 const charactersFavList = document.querySelector('.js_fav');
 const textInput = document.querySelector('.js_textinput');
 const btn = document.querySelector('.js_btn');
+const btnDelete = document.querySelector('.js_btn-delete');
 
 let charactersData = [];
 let charactersSearch = [];
@@ -30,10 +31,16 @@ function renderCharacters(charactersData) {
     classFav = 'fav';
   }
 
+  /*
+  characterFav.innerHTML += 'x';
+  const close = document.createElement('p');
+  const closeContent = document.createTextNode('x');
+  close.appendChild(closeContent);
+  characterFav.appendChild(close);
+*/
   //creamos los elementos
   const liElement = document.createElement('li');
   const articleElement = document.createElement('article');
-  // ----> meto la img en un div para que no se deforme?
   const imgElem = document.createElement('img');
   const titleElement = document.createElement('h3');
   const statusElement = document.createElement('p');
@@ -200,5 +207,16 @@ function handleEnter(event) {
   }
 }
 
+function deleteFavCharacters() {
+  charactersFavList.innerHTML = '';
+  charactersFavData = [];
+  localStorage.setItem('favList', JSON.stringify(charactersFavData));
+}
+
+function handleClickDelete() {
+  deleteFavCharacters();
+}
+
 btn.addEventListener('click', handleClick);
 textInput.addEventListener('keypress', handleEnter);
+btnDelete.addEventListener('click', handleClickDelete);
