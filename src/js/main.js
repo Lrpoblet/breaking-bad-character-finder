@@ -68,7 +68,6 @@ function renderCharacters(charactersData) {
 
   //añadimos estilos
   articleElement.classList.add('article-character');
-  liElement.classList.add('li-character');
   liElement.classList.add('js_character');
   imgElem.classList.add('img');
   close.classList.add(classDelete);

@@ -1,20 +1,6 @@
 @import 'core/variables';
 @import 'core/reset';
 
-.btn {
-  padding: 7px;
-  border: 0px solid transparent;
-  border-radius: 4px;
-  background-color: $green;
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    color: $green;
-    background-color: white;
-  }
-}
-
 .header {
   height: 30vh;
   display: flex;
@@ -29,6 +15,9 @@
     text-align: center;
     color: white;
     text-shadow: 0 2px 0 $green;
+  }
+  &_form {
+    margin-bottom: 2px;
   }
   .text-input {
     padding: 5px;
@@ -77,6 +66,9 @@
 
 .fav {
   background-color: $lighter-green;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
 .none {
@@ -109,4 +101,21 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.btn {
+  padding: 7px;
+  border: 0px solid transparent;
+  border-radius: 4px;
+  background-color: $green;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    color: $green;
+    background-color: white;
+  }
 }
