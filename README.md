@@ -13,7 +13,7 @@ personajes como favoritas y guardarlas en local storage.
 
 https://breakingbadapi.com/
 
-## Tecnologías
+## Lenguajes
 
 - HTML
 - SASS
