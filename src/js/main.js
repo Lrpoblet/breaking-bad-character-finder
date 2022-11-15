@@ -7,6 +7,7 @@ const charactersFavList = document.querySelector('.js_fav');
 const textInput = document.querySelector('.js_textinput');
 const btn = document.querySelector('.js_btn');
 const btnDelete = document.querySelector('.js_btn-delete');
+const btnAllCharacters = document.querySelector('.js_all');
 
 let charactersData = [];
 let charactersSearch = [];
@@ -217,6 +218,13 @@ function handleClickDelete() {
   deleteFavCharacters();
 }
 
+function handleClickAll(event) {
+  event.preventDefault();
+  renderCharactersList(charactersData);
+  textInput.value = '';
+}
+
 btn.addEventListener('click', handleClick);
 textInput.addEventListener('keypress', handleEnter);
 btnDelete.addEventListener('click', handleClickDelete);
+btnAllCharacters.addEventListener('click', handleClickAll);

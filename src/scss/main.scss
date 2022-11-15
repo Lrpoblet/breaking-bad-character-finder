@@ -2,7 +2,17 @@
 @import 'core/reset';
 
 .btn {
-  padding: 5px;
+  padding: 7px;
+  border: 0px solid transparent;
+  border-radius: 4px;
+  background-color: $green;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    color: $green;
+    background-color: white;
+  }
 }
 
 .header {
