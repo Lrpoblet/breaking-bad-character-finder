@@ -25,44 +25,45 @@ function renderCharacters(charactersData) {
 
   //creamos variable para asignar la clase Fav
   let classFav = '';
+  let classDelete = '';
   //devuelve -1 si no es favorito
   if (characterFavoritedIndex === -1) {
     classFav = 'none';
+    classDelete = 'hidden';
   } else {
     classFav = 'fav';
+    classDelete = 'close';
   }
 
-  /*
-  characterFav.innerHTML += 'x';
-  const close = document.createElement('p');
-  const closeContent = document.createTextNode('x');
-  close.appendChild(closeContent);
-  characterFav.appendChild(close);
-*/
   //creamos los elementos
   const liElement = document.createElement('li');
   const articleElement = document.createElement('article');
   const imgElem = document.createElement('img');
   const titleElement = document.createElement('h3');
   const statusElement = document.createElement('p');
+  const close = document.createElement('p');
 
   //creamos el contenido que rescataremos del servidor
   const textTitle = document.createTextNode(charactersData.name);
   const textStatus = document.createTextNode(charactersData.occupation);
+  const closeContent = document.createTextNode('x');
   // -----> ¡¡¡¡ SUSUTITUIR POR STATUS !!!! <--------------
   imgElem.setAttribute('src', charactersData.img);
   imgElem.setAttribute('alt', `${charactersData.name}`);
 
   //añadimos id(gancho) para poder identificarlo y meterlo en favoritos
   liElement.setAttribute('id', `${charactersData.char_id}`);
+  close.setAttribute('id', `${charactersData.char_id}`);
 
   //metemos el contenido en los elementos
   titleElement.appendChild(textTitle);
   statusElement.appendChild(textStatus);
+  close.appendChild(closeContent);
 
   articleElement.appendChild(imgElem);
   articleElement.appendChild(titleElement);
   articleElement.appendChild(statusElement);
+  articleElement.appendChild(close);
   liElement.appendChild(articleElement);
 
   //añadimos estilos
@@ -70,6 +71,8 @@ function renderCharacters(charactersData) {
   liElement.classList.add('li-character');
   liElement.classList.add('js_character');
   imgElem.classList.add('img');
+  close.classList.add(classDelete);
+  close.classList.add('js_close');
   liElement.classList.add(classFav);
 
   const characters = liElement;
@@ -154,6 +157,19 @@ function handleClick(event) {
   charactersSearched();
 }
 
+function handleEnter(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    charactersSearched();
+  }
+}
+
+function handleClickAll(event) {
+  event.preventDefault();
+  renderCharactersList(charactersData);
+  textInput.value = '';
+}
+
 // -------------> Favoritos
 
 //funcion para añadirle la clase al hacer click
@@ -194,34 +210,56 @@ function renderFav() {
   for (const characterFav of charactersFavData) {
     charactersFavList.appendChild(renderCharacters(characterFav));
   }
+  addCCloseListerers();
 }
 
-function handleClickCharacter() {
+function handleClickCharacter(event) {
   selectFav(event);
   addFav(event);
 }
 
-function handleEnter(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    charactersSearched();
-  }
-}
+// -------------> Borrar favoritos
+
+//Borrar todos
 
 function deleteFavCharacters() {
   charactersFavList.innerHTML = '';
   charactersFavData = [];
+
   localStorage.setItem('favList', JSON.stringify(charactersFavData));
 }
 
 function handleClickDelete() {
   deleteFavCharacters();
+  renderCharactersList(charactersData);
 }
 
-function handleClickAll(event) {
-  event.preventDefault();
+//Borrar seleccionado
+
+function handleClose(event) {
+  //guardamos el index del objeto para poder hacer el condicional y saber la posición para deseleccionar
+  const characterFavoritedIndex = charactersFavData.findIndex(
+    (eachCharacterObj) =>
+      eachCharacterObj.char_id === parseInt(event.currentTarget.id)
+  );
+
+  //si devuelve posicion es que está en la lista y por tanto lo queremos quitar
+  if (characterFavoritedIndex !== -1) {
+    charactersFavData.splice(characterFavoritedIndex, 1);
+
+    localStorage.setItem('favList', JSON.stringify(charactersFavData));
+  }
+
+  renderFav();
   renderCharactersList(charactersData);
-  textInput.value = '';
+}
+
+function addCCloseListerers() {
+  const allCloses = document.querySelectorAll('.js_close');
+
+  for (const eachCharacter of allCloses) {
+    eachCharacter.addEventListener('click', handleClose);
+  }
 }
 
 btn.addEventListener('click', handleClick);
