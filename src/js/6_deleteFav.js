@@ -33,7 +33,7 @@ function handleClose(event) {
 
     localStorage.setItem('favList', JSON.stringify(charactersFavData));
   }
-
+  event.stopPropagation();
   renderFav();
   renderCharactersList(charactersData);
 }
