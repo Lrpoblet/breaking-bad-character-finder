@@ -22,5 +22,7 @@ if (characterListStored !== null) {
     })
     .catch((error) => {
       console.error(error);
+      loading.innerHTML =
+        'There was a problem downloading the information from the server, sorry for the inconvenience.';
     });
 }
